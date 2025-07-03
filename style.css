@@ -1,0 +1,202 @@
+.grid {
+    display: grid;
+    gap: 0px;
+    grid-template-columns: 50%;
+    height: 500px; /* Set the height to 80% of the viewport height */
+}
+
+.griditem {
+    display: flex;
+    align-items: center;
+    height: 99px; /* Adjust the height as needed */
+    border: 1px solid rgba(0, 0, 0);
+    padding: 0px;
+}
+
+h1 {
+    font-family: "Helvetica";
+    color: black;
+    font-weight: lighter;
+    font-size: 131px;
+    margin: 0px;
+    align-items: center;
+    padding-top: 0px;
+}
+
+div.about a {
+    font-family: "Helvetica";
+    color: black;   
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 15px;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.griditem a {
+    font-family: "Helvetica";
+    text-decoration: none;
+    font-weight: lighter;
+    color: black;
+    font-size: 50px;
+    margin: 10px;
+}
+
+.griditem:nth-of-type(1) p {
+    margin-right: 0px; /* Adjust margin for first grid item */
+}
+
+.griditem:nth-of-type(4) p {
+    margin-right: 7px; /* Adjust margin for first grid item */
+}
+
+.griditem:nth-of-type(5) p {
+    margin-right: -3px; /* Adjust margin for first grid item */
+}
+
+.griditem:nth-of-type(7) p {
+    margin-right: 3px; /* Adjust margin for first grid item */
+}
+
+.griditem:nth-of-type(8) p {
+    margin-right: 27px; /* Adjust margin for first grid item */
+}
+
+.griditem:nth-of-type(6) p {
+    margin-right: 3px; /* Adjust margin for first grid item */
+}
+
+.griditem p {
+    font-family: "Helvetica";
+    color: black;
+    padding: 10px;
+    font-weight: lighter;
+    margin: 0; /* Remove default margin */
+    margin-top: -20px; /* Adjust margin to move the <p> element higher */
+    margin-left: 5px;
+}
+.griditem:hover,
+.griditem.selected {
+    background-color: yellow;
+    color: black
+}
+
+.griditem:hover a,
+.griditem.selected a,
+.griditem:hover p,
+.griditem.selected p {
+    color: black /* This will change the text color for all text within the griditem */
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-43.1%);
+    width: 50%; /* Set the width to half of the viewport */
+    height: 75.3%; /* Make it cover the entire height */
+    background-color: white;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in the width */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+.popup-content {
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.popup img {
+    max-height: 400px;
+    margin-top: 60px;
+}
+
+.popup p {
+    position: absolute;
+    top: 450px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Helvetica";
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.popup a {
+    position: absolute;
+    top: 550px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Helvetica";
+    font-weight: lighter;
+    font-size: 50px;
+    text-decoration: none;
+    color: black;
+    border: 2px solid black;
+    border-radius: 50% 50% 50% 50%;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#popup-about {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-43.1%);
+    width: 50%; /* Set the width to half of the viewport */
+    height: 75.3%; /* Make it cover the entire height */
+    background-color: white;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in the width */
+    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+#popup-about p {
+    position: absolute;
+    top: 60px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Helvetica";
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    width: 80%;
+    display: flex;
+}
+
+#close-button-about {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#popup-about img {
+    width: 400px;
+    padding-bottom: 10px;
+}
+
+.griditem a.lipreading-link {
+    margin-left: 20px; /* Adjust margin as needed */
+}
