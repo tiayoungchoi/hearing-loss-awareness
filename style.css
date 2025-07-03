@@ -158,7 +158,7 @@ div.about a {
     position: fixed;
     top: 50%;
     right: 0;
-    transform: translateY(-43.1%);
+    transform: translateY(-50%);
     width: 50%; /* Set the width to half of the viewport */
     height: 75.3%; /* Make it cover the entire height */
     background-color: white;
