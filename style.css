@@ -1,14 +1,16 @@
 .grid {
     display: grid;
     gap: 0px;
-    grid-template-columns: 50%;
-    height: 500px; /* Set the height to 80% of the viewport height */
+    /* grid-template-columns: 50%; */
+    /* height: 10vw;  */
+    width: 50vw;
+    position: absolute
 }
 
 .griditem {
     display: flex;
     align-items: center;
-    height: 99px; /* Adjust the height as needed */
+    height: 5.5vw; 
     border: 1px solid rgba(0, 0, 0);
     padding: 0px;
 }
@@ -91,12 +93,12 @@ div.about a {
 
 .popup {
     display: none;
+    padding:0px;
     position: fixed;
-    top: 50%;
+    top: 10.5vw;
     right: 0;
-    transform: translateY(-43.1%);
-    width: 50%; /* Set the width to half of the viewport */
-    height: 75.3%; /* Make it cover the entire height */
+      width: 50vw; /* Set the width to half of the viewport */
+    height: 44.9vw; /* Make it cover the entire height */
     background-color: white;
     padding: 10px;
     border: 1px solid black;
@@ -154,19 +156,17 @@ div.about a {
 }
 
 #popup-about {
-    display: none;
-    position: fixed;
-    top: 50%;
+    /* display: none; */
+    position: absolute;
     right: 0;
-    transform: translateY(-50%);
-    width: 50%; /* Set the width to half of the viewport */
-    height: 75.3%; /* Make it cover the entire height */
+    width: 50vw; /* Set the width to half of the viewport */
+    height: 44.9vw; /* Make it cover the entire height */
     background-color: white;
-    padding: 10px;
+    /* padding: 10px; */
     border: 1px solid black;
     text-align: center;
     box-sizing: border-box; /* Include padding and border in the width */
-    overflow-y: auto; /* Enable vertical scrolling if content overflows */
+    /* overflow-y: auto; Enable vertical scrolling if content overflows */
 }
 
 #popup-about p {
