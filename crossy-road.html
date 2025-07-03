@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crossy Road</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    #gameContainer {
+        position: relative;
+    }
+    canvas {
+        background-color: #FFFFFF;
+        display: block;
+        cursor: none; /* Hide the cursor */
+    }
+    .hiddenCursor {
+        cursor: none !important; /* Hide the cursor */
+    }
+    .topLeftLink, .topRightLink {
+        color: #000000;
+        text-decoration: none;
+        font-size: 20px; /* Set the font size */
+        position: absolute;
+        top: 20px; /* Adjust top position */
+        font-family: "Helvetica";
+        z-index: 9999; /* Ensure it's above everything */
+    }
+    .topLeftLink {
+        left: 20px; /* Adjust left position */
+    }
+    .topRightLink {
+        right: 20px; /* Adjust right position */
+    }
+    .caption {
+        position: absolute;
+        bottom: 100px;
+        left: 50%; /* Move to the center horizontally */
+        transform: translateX(-50%); /* Adjust for half of the caption width */
+        color: #000000; /* Adjust text color */
+        font-size: 20px;
+        font-family: "Helvetica"; /* Add font family */
+    }
+    #timer {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #000000;
+        font-size: 20px;
+        font-family: "Helvetica";
+    }
+    #aboutPopup {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 200px;
+        background-color: #FFFFFF;
+        border: 2px solid #000000;
+        padding: 30px;
+        /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
+        z-index: 9999; /* Ensure it's on top */
+        font-family: "Helvetica";
+    }
+    .closeButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+    #aboutPopup:hover {
+        cursor: default; /* Show default cursor when hovering over the popup */
+    }
+</style>
+</head>
+<body class="hiddenCursor">
+<div id="gameContainer">
+    <a href="Hearing Loss Awareness.html" class="topLeftLink">(Home)</a>
+    <a href="#" id="aboutLink" class="topRightLink">(About)</a>
+    <canvas id="gameCanvas"></canvas>
+    <div id="timer" class="caption" style="top: 20px; left: 50%; transform: translateX(-50%);">Time: <span id="timeCounter">0</span> seconds</div>
+    <div class="caption">Try to avoid the cars!</div>
+</div>
+
+<audio autoplay loop>
+    <source src="car.mp3" type="audio/mpeg">
+</audio>
+
+
+<div id="aboutPopup">
+    <span id="closeButton" class="closeButton">×</span>
+    Even crossing a road can be a danger to people with hearing difficulties. Try to avoid the cars that come out of nowhere without any warnings. 
+</div>
+
+<script>
+    // Set up canvas
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth; // Subtract padding from canvas width
+    canvas.height = window.innerHeight; // Subtract padding from canvas height
+
+    // Player object
+    const player = {
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        radius: 20,
+        color: "#FFFFFF", // White fill
+        strokeWidth: 2, // Stroke width
+        strokeStyle: "#000000" // Black border
+    };
+
+    // Rectangle object
+    const rectangles = [];
+
+    // Update function
+    function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Set line width for player stroke
+        ctx.lineWidth = player.strokeWidth;
+
+        // Draw player
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+        ctx.fillStyle = player.color;
+        ctx.strokeStyle = player.strokeStyle; // Set the border color
+        ctx.fill();
+        ctx.stroke(); // Draw the border
+
+        // Restoring default line width
+        ctx.lineWidth = 1;
+
+        // Draw rectangles and update their positions
+        for (let i = 0; i < rectangles.length; i++) {
+            // Set rectangle style
+            ctx.fillStyle = "#FFFFFF"; // White fill
+            ctx.strokeStyle = "#000000"; // Black border
+            ctx.lineWidth = 2;
+
+            // Draw rectangle with border
+            ctx.fillRect(rectangles[i].x, rectangles[i].y, rectangles[i].width, rectangles[i].height);
+            ctx.strokeRect(rectangles[i].x, rectangles[i].y, rectangles[i].width, rectangles[i].height);
+
+            // Update rectangle position based on direction
+            if (rectangles[i].direction === "down") {
+                rectangles[i].y += 40; // Adjusted speed here
+            } else if (rectangles[i].direction === "up") {
+                rectangles[i].y -= 40; // Adjusted speed here
+            } else if (rectangles[i].direction === "left") {
+                rectangles[i].x -= 40; // Adjusted speed here
+            } else if (rectangles[i].direction === "right") {
+                rectangles[i].x += 40; // Adjusted speed here
+            }
+
+            if (player.x < rectangles[i].x + rectangles[i].width &&
+            player.x + player.radius > rectangles[i].x &&
+            player.y < rectangles[i].y + rectangles[i].height &&
+            player.y + player.radius > rectangles[i].y) {
+            clearInterval(gameInterval); // Stop the game loop
+            alert("Game Over! Time: " + elapsedTime + " seconds");
+            window.location.href = "Hearing Loss Awareness.html"; // Redirect to the desired page
+        }
+
+
+            // Remove rectangles that are out of the canvas
+            if (rectangles[i].y > canvas.height || rectangles[i].x > canvas.width || rectangles[i].x + rectangles[i].width < 0 || rectangles[i].y + rectangles[i].height < 0) {
+                rectangles.splice(i, 1);
+                i--;
+            }
+        }
+    }
+
+    // Add rectangle function
+    function addRectangle() {
+        if (Math.random() < 0.1) { // Adjust probability here (0.05 = 5% chance)
+            const directions = ["down", "up", "left", "right"];
+            const direction = directions[Math.floor(Math.random() * directions.length)];
+            let rect;
+            if (direction === "down") {
+                rect = {
+                    x: Math.random() * (canvas.width - 150), // Adjust size here
+                    y: -150, // Start above the canvas
+                    width: 100, // Adjust width here
+                    height: 150, // Adjust height here
+                    direction: "down",
+                };
+            } else if (direction === "up") {
+                rect = {
+                    x: Math.random() * (canvas.width - 150), // Adjust size here
+                    y: canvas.height, // Start below the canvas
+                    width: 100, // Adjust width here
+                    height: 150, // Adjust height here
+                    direction: "up",
+                };
+            } else if (direction === "left") {
+                rect = {
+                    x: canvas.width, // Start right of the canvas
+                    y: Math.random() * (canvas.height - 150), // Adjust size here
+                    width: 150, // Adjust width here
+                    height: 100, // Adjust height here
+                    direction: "left",
+                };
+            } else if (direction === "right") {
+                rect = {
+                    x: -150, // Start left of the canvas
+                    y: Math.random() * (canvas.height - 150), // Adjust size here
+                    width: 150, // Adjust width here
+                    height: 100, // Adjust height here
+                    direction: "right",
+                };
+            }
+            rectangles.push(rect);
+        }
+    }
+
+    // Game loop
+    let gameInterval; // Variable to store game loop interval
+    function startGame() {
+        gameInterval = setInterval(() => {
+            addRectangle();
+            update();
+        }, 30); // Adjust speed here
+    }
+    startGame(); // Start the game loop initially
+
+    // Mouse move event listener
+    canvas.addEventListener("mousemove", (event) => {
+        player.x = event.clientX - 20; // Subtract padding from mouse x-coordinate
+        player.y = event.clientY - 20; // Subtract padding from mouse y-coordinate
+    });
+
+    // Timer functionality
+    let startTime; // Variable to store start time of the timer
+    let timerInterval; // Variable to store the interval for updating the timer
+    let elapsedTime = 0; // Variable to store elapsed time
+
+    function startTimer() {
+        startTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000); // Update timer every second
+    }
+
+    function pauseTimer() {
+        clearInterval(timerInterval);
+    }
+
+    function resumeTimer() {
+        startTime = Date.now() - (elapsedTime * 1000); // Subtract elapsed time from current time
+        timerInterval = setInterval(updateTimer, 1000); // Update timer every second
+    }
+
+    function updateTimer() {
+        const currentTime = Date.now();
+        elapsedTime = Math.floor((currentTime - startTime) / 1000); // Calculate elapsed time in seconds
+        document.getElementById("timeCounter").textContent = elapsedTime;
+    }
+
+    // Start the timer when the game starts
+    startTimer();
+
+    // About popup functionality
+    document.addEventListener("DOMContentLoaded", function() {
+        const aboutLink = document.getElementById("aboutLink");
+        const homeLink = document.querySelector(".topLeftLink");
+        const aboutPopup = document.getElementById("aboutPopup");
+        const closeButton = document.getElementById("closeButton");
+
+        console.log("DOMContentLoaded event triggered"); // Add console log
+
+        aboutLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            aboutPopup.style.display = "block";
+            clearInterval(gameInterval); // Pause the game loop
+            pauseTimer(); // Pause the timer
+        });
+
+        homeLink.addEventListener("click", function(event) {
+            event.preventDefault();
+            window.location.href = homeLink.href;
+        });
+
+        closeButton.addEventListener("click", function() {
+            aboutPopup.style.display = "none";
+            startGame(); // Resume the game loop
+            resumeTimer(); // Resume the timer
+        });
+    });
+
+    // Open about popup automatically when the page loads
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("aboutLink").click();
+    });
+</script>
+</body>
+</html>

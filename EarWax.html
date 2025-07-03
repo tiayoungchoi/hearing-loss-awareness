@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ear Wax Cleaning</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+  }
+  
+  .ellipse-container {
+    position: relative;
+    width: 300px;
+    height: 500px; /* Adjust height as needed */
+  }
+  
+  .ellipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 50%;
+    border: 2px solid #000000;
+  }
+  
+  .circle {
+    position: absolute;
+    background-color: rgb(255, 255, 0);
+    border: 2px solid #000000;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .circle:hover {
+    transform: scale(1.1);
+  }
+
+  .topLeftLink {
+    color: #000000;
+    text-decoration: none;
+    font-size: 20px;
+    position: absolute;
+    padding: 20px;
+    font-family: "Helvetica";
+    top: 10px; /* Adjusted top position */
+    left: 10px; /* Adjusted left position */
+}
+
+.topRightLink {
+    color: #000000; /* Set text color to black */
+    text-decoration: none; /* Remove text decoration */
+    font-family: "Helvetica"; /* Set font family */
+    position: absolute;
+    top: 20px; /* Adjust top position */
+    right: 20px; /* Adjust right position */
+    font-size: 20px; /* Set font size */
+}
+
+.caption {
+    position: absolute;
+    bottom: 100px;
+    left: 50%; /* Move to the center horizontally */
+    transform: translateX(-50%); /* Adjust for half of the caption width */
+    color: #000000; /* Adjust text color */
+    font-size: 20px;
+    font-family: "Helvetica"; /* Add font family */
+}
+
+#aboutPopup {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 200px;
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    padding: 30px;
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); */
+    z-index: 9999; /* Ensure it's on top */
+    font-family: "Helvetica";
+}
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+#aboutPopup:hover {
+    cursor: default; /* Show default cursor when hovering over the popup */
+}
+</style>
+</head>
+<body>
+
+<a href="Hearing Loss Awareness.html" class="topLeftLink">(Home)</a>
+<a href="#" id="aboutLink" class="topRightLink">(About)</a>
+
+<div class="ellipse-container">
+  <div class="ellipse"></div>
+</div>
+
+<audio id="backgroundAudio" loop autoplay style="display:none;">
+  <source src="white noise.mp3" type="audio/mpeg">
+</audio>
+
+
+<div class="caption">Clean out the ear wax by clicking them.</div>
+
+<div id="aboutPopup">
+  <span id="closeButton" class="closeButton">×</span>
+  Using hearing aids build up ear wax in your ears and eventually cause ear aches. Clean the ear wax to prevent this.
+</div>
+
+<audio id="popSound" preload="auto">
+  <source src="pop.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const backgroundAudio = document.getElementById('backgroundAudio');
+  const initialVolume = 0.1; // Initial volume level
+  const volumeIncrement = 0.1; // Increment by which volume increases
+  let currentVolume = initialVolume;
+
+  // Set initial volume
+  backgroundAudio.volume = currentVolume;
+
+  function increaseVolume() {
+    currentVolume += volumeIncrement;
+    if (currentVolume > 1) {
+      currentVolume = 1; // Ensure volume doesn't exceed 1
+    }
+    backgroundAudio.volume = currentVolume;
+  }
+
+  function playBackgroundAudio() {
+    if (backgroundAudio.paused) {
+      backgroundAudio.play();
+    }
+  }
+
+  function stopBackgroundAudio() {
+    backgroundAudio.pause();
+  }
+
+  function checkCirclesRemaining() {
+    const remainingCircles = document.querySelectorAll('.circle');
+    if (remainingCircles.length === 0) {
+      // All circles have been removed
+      alert("Congratulations! You've cleaned out all the ear wax.");
+      stopBackgroundAudio();
+      window.location.href = "Hearing Loss Awareness.html";
+    } else {
+      increaseVolume(); // Increase volume as circles are removed
+      playBackgroundAudio(); // Start playing audio
+    }
+  }
+
+  // Function to create random circles
+  function createRandomCircles() {
+    const container = document.querySelector('.ellipse-container');
+    const numCircles = getRandomNumber(15, 30); // Increase number of circles
+
+    for (let i = 0; i < numCircles; i++) {
+      const size = getRandomNumber(10, 60); // Random size of circles
+      const topPos = getRandomNumber(0, 500 - size); // Random top position
+      const leftPos = getRandomNumber(0, 300 - size); // Random left position
+
+      const circle = document.createElement('div');
+      circle.classList.add('circle');
+      circle.style.width = `${size}px`;
+      circle.style.height = `${size}px`;
+      circle.style.top = `${topPos}px`;
+      circle.style.left = `${leftPos}px`;
+
+      container.appendChild(circle);
+    }
+
+    // Add event listeners to newly created circles
+    container.querySelectorAll('.circle').forEach(circle => {
+      circle.addEventListener('click', () => {
+        circle.remove();
+        checkCirclesRemaining(); // Check remaining circles after removal
+        playPopSound(); // Play pop sound
+      });
+    });
+  }
+
+  // Initial creation of circles
+  createRandomCircles();
+
+  function playPopSound() {
+    const popSound = document.getElementById('popSound');
+    popSound.currentTime = 0; // Reset audio to start
+    popSound.play();
+  }
+
+  const aboutLink = document.getElementById("aboutLink");
+  const homeLink = document.querySelector(".topLeftLink");
+  const aboutPopup = document.getElementById("aboutPopup");
+  const closeButton = document.getElementById("closeButton");
+
+  function displayAboutPopup() {
+    aboutPopup.style.display = "block";
+  }
+
+  // Call the function to display the about popup when the page is loaded
+  displayAboutPopup();
+
+  aboutLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    displayAboutPopup();
+  });
+
+  homeLink.addEventListener("click", function(event) {
+    event.preventDefault();
+    window.location.href = homeLink.href;
+  });
+
+  closeButton.addEventListener("click", function() {
+    aboutPopup.style.display = "none";
+  });
+
+  // Helper function to get random number within a range
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+});
+
+
+</script>
+
+</body>
+</html>

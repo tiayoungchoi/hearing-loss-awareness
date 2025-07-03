@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Game</title>
+  <style>
+    body {
+      font-family: "Helvetica"
+    }
+    #game-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    #video-container {
+      margin-top: 250px;
+    }
+    #input-field {
+      padding: 10px;
+      font-size: 18px;
+    }
+    #result {
+      font-size: 20px;
+      font-weight: lighter;
+      margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: normal;
+      font-family: "Helvetica"
+    }
+
+    .topLeftLink, .topRightLink {
+        color: #000000;
+        text-decoration: none;
+        font-size: 20px; /* Set the font size */
+        position: absolute;
+        top: 20px; /* Adjust top position */
+        font-family: "Helvetica";
+        z-index: 9999; /* Ensure it's above everything */
+    }
+    .topLeftLink {
+        left: 20px; /* Adjust left position */
+    }
+    .topRightLink {
+        right: 20px; /* Adjust right position */
+    }
+
+    #aboutPopup {
+        display: none;
+        position: absolute;
+        top: 48%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 200px;
+        background-color: #FFFFFF;
+        border: 2px solid #000000;
+        padding: 30px;
+        z-index: 9999; /* Ensure it's on top */
+        font-family: "Helvetica";
+    }
+
+    .nextLink {
+        display: block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: blue;
+    }
+
+    .closeButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    .nextLink {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: black; /* Set the color to black */
+}
+video {
+    border: none;
+  }
+
+  </style>
+</head>
+<body>
+
+  <audio id="backgroundAudio" loop autoplay style="display:none;">
+    <source src="overstimulation.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  
+
+<div id="game-container">
+  <a href="Hearing Loss Awareness.html" class="topLeftLink">(Home)</a>
+  <a href="#" id="aboutLink" class="topRightLink">(About)</a>
+  <div id="video-container">
+    <video width="600" height="auto" controls autoplay loop muted style="border: none;">
+      <source src="did you eat today.mp4" type="video/mp4">
+    </video>
+  </div>
+  <h2>Type the correct answer:</h2>
+  <input type="text" id="input-field" placeholder="Type here...">
+  <p id="result"></p>
+</div>
+
+<div id="aboutPopup">
+  <span id="closeButton" class="closeButton">×</span>
+  In a loud environment, it is more difficult to read the lips. Try to read lips in a loud environment where you can't hear the person.
+</div>
+
+<script>
+  // Function to check if the typed answer is correct
+  function checkAnswer() {
+    var userInput = document.getElementById('input-field').value.trim(); // Trim the user input
+    var correctAnswer = "did you eat today"; // Standardize the correct answer
+
+    // Check if the user input matches any variations of the correct answer
+    if (userInput.toLowerCase() === correctAnswer ||
+        userInput === correctAnswer + "?" || // Check with the trailing question mark
+        userInput.toLowerCase() === correctAnswer + "?" ||
+        userInput === correctAnswer.charAt(0).toUpperCase() + correctAnswer.slice(1) ||
+        userInput === correctAnswer.charAt(0).toUpperCase() + correctAnswer.slice(1) + "?" ||
+        userInput === correctAnswer.replace("?", "") ||
+        userInput.toLowerCase() === correctAnswer.replace("?", "") ||
+        userInput === correctAnswer.replace("?", "").charAt(0).toUpperCase() + correctAnswer.slice(1)) {
+        alert("Correct!");
+        var nextLink = document.createElement('a');
+        nextLink.href = "lipreading3.html";
+        nextLink.textContent = "Next Question";
+        nextLink.style.color = "black"; // Set the color to black
+        nextLink.style.textDecoration = "none"; // Remove text decoration
+        nextLink.style.display = "block"; // Ensure it's block level
+        nextLink.style.marginTop = "20px"; // Set margin top
+        document.getElementById('game-container').appendChild(nextLink);
+    } else {
+        alert('Wrong. The correct answer was "Did you eat today?"');
+        var nextLink = document.createElement('a');
+        nextLink.href = "lipreading3.html";
+        nextLink.textContent = "Next Question";
+        nextLink.style.color = "black"; // Set the color to black
+        nextLink.style.textDecoration = "none"; // Remove text decoration
+        nextLink.style.display = "block"; // Ensure it's block level
+        nextLink.style.marginTop = "20px"; // Set margin top
+        document.getElementById('game-container').appendChild(nextLink);
+    }
+}
+
+  // Event listener for when the user types in the input field
+  document.getElementById('input-field').addEventListener('input', function() {
+    document.getElementById('result').innerText = ""; // Clear previous result
+  });
+
+  // Event listener for when the user presses Enter
+  document.getElementById('input-field').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      checkAnswer();
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const aboutLink = document.getElementById("aboutLink");
+    const aboutPopup = document.getElementById("aboutPopup");
+    const closeButton = document.getElementById("closeButton");
+
+    // Add event listener for the about link to show the about popup
+    aboutLink.addEventListener("click", function(event) {
+        event.preventDefault();
+        aboutPopup.style.display = "block";
+    });
+
+    closeButton.addEventListener("click", function() {
+        aboutPopup.style.display = "none";
+    });
+});
+</script>
+
+</body>
+</html>

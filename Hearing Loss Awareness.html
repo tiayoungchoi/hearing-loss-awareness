@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearing Loss Awareness</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="about">
+        <a href="#" id="about-link">(About)</a>
+    </div>
+
+    <audio id="backgroundAudio" loop autoplay style="display:none;">
+        <source src="white noise.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- About pop-up -->
+    <div id="popup-about" class="popup">
+        <div class="popup-content">
+            <button class="close-button" id="close-button-about">X</button>
+            <img src="car-01.png" alt="">
+            <img src="overstimulation.png" alt="">
+            <img src="tone.png" alt="">
+            <img src="reading.png" alt="">
+            <img src="isolation.png" alt="">
+            <img src="earwax.png" alt="">
+            <p>This website is dedicated to raising awareness about hearing loss. Through various activities and games, we aim to educate and inform visitors about the challenges faced by individuals with hearing loss. Go through the life of the person with a hearing difficulty. Follow the time schedule on the left.
+            </p>
+        </div>
+    </div>
+
+    <h1>HEARING LOSS AWARENESS</h1>
+
+    <div class="grid">
+        <div class="griditem">
+            <p>09:00AM</p>
+            <a href="crossy-road.html" class="crossy-road-link"> CROSSY ROAD</a>
+        </div>
+
+        <div class="griditem">
+            <p>09:15AM</p>
+            <a href="overstimulation.html" class="overstimulation-link"> OVERSTIMULATION</a>
+        </div>
+
+        <div class="griditem">
+            <p>12:00PM</p>
+            <a href="concentrate!.html" class="concentrate-link">CONCENTRATE!</a>
+        </div>
+
+        <div class="griditem">
+            <p>12:30PM</p>
+            <a href="isolation.html" class="isolation-link">ISOLATION</a>
+        </div>
+
+        <div class="griditem">
+            <p>01:00PM</p>
+            <a href="lipreading.html" class="lipreading-link">LIP READING</a>
+        </div>
+
+        <div class="griditem">
+            <p>04:00PM</p>
+            <a href="guessthetone.html" class="guessthetone-link">GUESS THE TONE</a>
+        </div>
+
+        <div class="griditem">
+            <p>10:00PM</p>
+            <a href="EarWax.html" class="earwax-link">EAR WAX CLEANING</a>
+        </div>
+
+        <div class="griditem">
+            <p>HELP</p>
+            <a href="websites.html" class="website-link">USEFUL INFORMATION</a>
+        </div>
+
+        
+    </div>
+    
+    <div id="popup-crossy-road" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img id="popup-image-crossy-road" src="car.png" alt="Car">
+            <p>You are on your way to go to school and you have to cross the road.</p>
+            <a class="play-text" href="crossy-road.html">Play</a> 
+        </div>
+    </div>
+    
+    <div id="popup-overstimulation" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img id="popup-image-overstimulation" src="overstimulation.png" alt="">
+            <p>You arrive at school but it's quite noisy. You are overstimulated.</p>
+            <a class="play-text" href="overstimulation.html">Play</a>
+        </div>
+    </div>
+
+    <div id="popup-concentrate" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img id="popup-image-concentrate" src="concentrate.png" alt="Concentrate">
+            <p>Your tutor is talking and the lunch time is coming up and you are losing concentration.</p>
+            <a class="play-text" href="concentrate!.html">Play</a> 
+        </div>
+    </div>
+
+    <div id="popup-guess-tone" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img id="popup-image-guess-tone" src="tone.png" alt="Tone">
+            <p>It's lunch time and you are talking to your friend.</p>
+            <a class="play-text" href="Guess The Tone.html">Play</a>
+        </div>
+    </div>
+
+    <div id="popup-earwax" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img id="popup-image-earwax" src="earwax.png" alt="Ear Wax Cleaning">
+            <p>Clean the ear wax that has been built up before you sleep.</p>
+            <a class="play-text" href="EarWax.html">Play</a>
+        </div>
+    </div>
+
+    <div id="popup-isolation" class="popup">
+        <div class="popup-content">
+            <button class="close-button" id="close-button-isolation">X</button>
+            <img id="popup-image-isolation" src="isolation.png" alt="">
+            <p>It's lunch time and you feel isolated at school.</p>
+            <a class="play-text" href="isolation.html">Play</a>
+        </div>
+    </div>
+
+    <div id="popup-lipreading" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img id="popup-image-lipreading" src="reading.png" alt="Lip Reading">
+            <p>Practice lip reading to understand conversations better.</p>
+            <a class="play-text" href="lipreading.html">Play</a>
+        </div>
+    </div>
+
+    <div id="popup-websites" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img src="website.png" alt="Website">
+            <p>Explore my experience of hearing loss & some useful websites related to hearing loss.</p>
+            <a class="play-text" href="my-experience.html">Go!</a>
+        </div>
+    </div>
+    
+    <div id="popup-guessthetone" class="popup">
+        <div class="popup-content">
+            <button class="close-button">X</button>
+            <img src="tone.png" alt="Tone">
+            <p>Test your ability to recognize tones.</p>
+            <a class="play-text" href="guessthetone.html">Play</a>
+        </div>
+    </div>
+</body>
+</html> 
