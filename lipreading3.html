@@ -97,7 +97,7 @@ video {
   
 
 <div id="game-container">
-  <a href="Hearing Loss Awareness.html" class="topLeftLink">(Home)</a>
+  <a href="index.html" class="topLeftLink">(Home)</a>
   <a href="#" id="aboutLink" class="topRightLink">(About)</a>
   <div id="video-container">
     <video width="600" height="auto" controls autoplay loop muted style="border: none;">
@@ -131,7 +131,7 @@ video {
         userInput === correctAnswer.replace("?", "").charAt(0).toUpperCase() + correctAnswer.slice(1)) {
         alert("Correct!");
         var nextLink = document.createElement('a');
-        nextLink.href = "Hearing Loss Awareness.html";
+        nextLink.href = "index.html";
         nextLink.textContent = "Go back to home";
         nextLink.style.color = "black"; // Set the color to black
         nextLink.style.textDecoration = "none"; // Remove text decoration
@@ -141,7 +141,7 @@ video {
     } else {
         alert('Wrong. The correct answer was "How is your project going on?"');
         var nextLink = document.createElement('a');
-        nextLink.href = "Hearing Loss Awareness.html";
+        nextLink.href = "index.html";
         nextLink.textContent = "Go back to home";
         nextLink.style.color = "black"; // Set the color to black
         nextLink.style.textDecoration = "none"; // Remove text decoration
