@@ -83,7 +83,7 @@
 </head>
 <body class="hiddenCursor">
 <div id="gameContainer">
-    <a href="Hearing Loss Awareness.html" class="topLeftLink">(Home)</a>
+    <a href="index.html" class="topLeftLink">(Home)</a>
     <a href="#" id="aboutLink" class="topRightLink">(About)</a>
     <canvas id="gameCanvas"></canvas>
     <div id="timer" class="caption" style="top: 20px; left: 50%; transform: translateX(-50%);">Time: <span id="timeCounter">0</span> seconds</div>
@@ -166,7 +166,7 @@
             player.y + player.radius > rectangles[i].y) {
             clearInterval(gameInterval); // Stop the game loop
             alert("Game Over! Time: " + elapsedTime + " seconds");
-            window.location.href = "Hearing Loss Awareness.html"; // Redirect to the desired page
+            window.location.href = "index.html"; // Redirect to the desired page
         }
 
 
